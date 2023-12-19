@@ -503,7 +503,7 @@ module.exports = {
     author: '猫头猫0.2.2改',
     version: "0.2.3",
     appVersion: ">0.1.0-alpha.0",
-    srcUrl: "",
+    srcUrl: "https://gitee.com/ThomasYou/musicfree/raw/master/dist/wy/index.js",
     cacheControl: "no-store",
     hints: {
         importMusicSheet: [
