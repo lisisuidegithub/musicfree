@@ -20,9 +20,9 @@
         "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/mg/index.js",
         "version": "0.2.2"
     }, {
-        "name": "酷狗",
-        "url": "https://agit.ai/vale_gtt/MSC_API/raw/branch/master/%e7%8c%ab%e5%a4%b4%e7%8c%ab_plugs/kugou/index.js",
-        "version": "0.1.4"
+        "name": "酷狗音乐",
+        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/kg/index.js",
+        "version": "0.1.6"
     }, {
         "name": "5sing",
         "url": "https://agit.ai/vale_gtt/MSC_API/raw/branch/master/%e7%8c%ab%e5%a4%b4%e7%8c%ab_plugs/5sing/index.js",
