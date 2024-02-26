@@ -455,7 +455,7 @@ async function getLyric(musicItem) {
 
 
 module.exports = {
-    platform: "酷狗音乐",
+    platform: "酷狗",
     version: "0.1.6",
     author: '反馈Q群@365976134',
     appVersion: ">0.1.0-alpha.0",
