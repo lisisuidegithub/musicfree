@@ -9,8 +9,8 @@
         "version": "0.2.3"
     }, {
         "name": "简繁音乐",
-        "url": "https://csm.sayqz.com/js/app/app.js",
-        "version": "0.0.5"
+        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/wy/index.js",
+        "version": "0.0.6"
     }, {
         "name": "云音乐",
         "url": "http://adad23u.appinstall.life/dist/kuwo/index.js",
