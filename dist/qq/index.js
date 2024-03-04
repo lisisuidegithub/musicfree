@@ -6,7 +6,7 @@ const axios_1 = require("axios");
 const CryptoJs = require("crypto-js");
 const pageSize = 20;
 const headers = {
-    referer: "https://y.qq.com",
+    referer: "https://y.qq.com/",
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
     Cookie: "qm_keyst=; uin=;",
 };
