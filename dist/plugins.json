@@ -6,7 +6,7 @@
     }, {
         "name": "QQ音乐",
         "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/qq/index.js",
-        "version": "0.2.3"
+        "version": "0.2.4"
     }, {
         "name": "简繁音乐",
         "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/wy/index.js",
