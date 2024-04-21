@@ -1,19 +1,19 @@
 {
     "plugins": [{
         "name": "TencentMusic",
-        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/qq/index.js",
+        "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/qq/index.js",
         "version": "0.0.1"
     }, {
         "name": "NeteaseCloudMusic",
-        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/wy/index.js",
+        "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/wy/index.js",
         "version": "0.0.1"
     }, {
         "name": "MiguMusic",
-        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/mg/index.js",
+        "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/mg/index.js",
         "version": "0.0.1"
     }, {
         "name": "KugouMusic",
-        "url": "https://gitee.com/ThomasYou/musicfree/raw/master/dist/kg/index.js",
+        "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/kg/index.js",
         "version": "0.0.1"
     }
 ]
