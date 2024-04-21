@@ -84,7 +84,7 @@ async function searchAlbum(query, page) {
     });
     return {
         isEnd: page * 20 >= res.data.total,
-        data: albums,
+        data: IAlbumItem[albums],
     };
 }
 async function searchMusicSheet(query, page) {
@@ -111,7 +111,7 @@ async function searchMusicSheet(query, page) {
     }));
     return {
         isEnd: page * pageSize >= res.data.total,
-        data: sheets,
+        data: IMusicSheetItem[sheets],
     };
 }
 async function getTopLists() {
@@ -291,29 +291,6 @@ async function importMusicSheet(urlLike) {
     return musicList;
 }
 
-
-
-
-
-/* 换成免费歌曲的更多接口
-async function searchMusic(query, page) {
-    const res = (await axios_1.default.get("http://mobilecdn.kugou.com/api/v3/search/song", {
-        headers,
-        params: {
-            format: "json",
-            keyword: query,
-            page,
-            pagesize: pageSize,
-            showtype: 1,
-        },
-    })).data;
-    const songs = res.data.info.filter(validMusicFilter).map(formatMusicItem);
-    return {
-        isEnd: page * pageSize >= res.data.total,
-        data: songs,
-    };
-}
-*/
 const signKey = "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt";
 async function signMD5(content) {
     return CryptoJS.MD5(signKey + content + signKey).toString();
@@ -360,61 +337,25 @@ async function searchMusic(query, page) {
     };
 }
 
-
-
-
-
-/* 20240225 用不了了
+// by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
-    let hash;
-    if (quality === "low") {
-        hash = musicItem.id;
+    try {
+        let ikun = (await (0, axios_1.default)({
+            method: "GET",
+            url: `https://lxmusic.ikunshare.com:9763/url/kg/${musicItem.id}/${quality}`,
+            headers: {
+                "X-Request-Key": "lxmusic"
+            },
+            xsrfCookieName: "XSRF-TOKEN",
+            withCredentials: true,
+        })).data;
+        
+        return {
+            url: ikun.data,
+          };
+    } catch (err) {
+        return null;
     }
-    else if (quality === "standard") {
-        hash = musicItem["320hash"];
-    }
-    else if (quality === "high") {
-        hash = musicItem.sqhash;
-    }
-    else {
-        hash = musicItem.origin_hash;
-    }
-    if (!hash) {
-        return;
-    }
-    const res = (await axios_1.default.get("https://wwwapi.kugou.com/yy/index.php", {
-        headers,
-        params: {
-            r: "play/getdata",
-            hash: hash,
-            appid: "1014",
-            mid: "56bbbd2918b95d6975f420f96c5c29bb",
-            album_id: musicItem.album_id,
-            album_audio_id: musicItem.album_audio_id,
-            _: Date.now(),
-        },
-    })).data.data;
-    const url = res.play_url || res.play_backup_url;
-    if (!url) {
-        return;
-    }
-    return {
-        url,
-        rawLrc: res.lyrics,
-        artwork: res.img,
-    };
-}
-*/
-async function getMediaSource(musicItem, quality) {
-    const url = (await axios_1.default.get("https://m.kugou.com/app/i/getSongInfo.php", {
-        params: {
-            cmd: "playInfo",
-            hash: musicItem.id
-        },
-    })).data.url;
-    return {
-        url
-    };
 }
 async function getLyric(musicItem) {
     let lrc, res = (await axios_1.default.get("http://krcs.kugou.com/search", {
@@ -455,11 +396,11 @@ async function getLyric(musicItem) {
 
 
 module.exports = {
-    platform: "酷狗",
-    version: "0.1.6",
-    author: '反馈Q群@365976134',
+    platform: "KugouMusic",
+    version: "0.0.1",
+    author: 'ikun0014&ThomasYou',
     appVersion: ">0.1.0-alpha.0",
-    srcUrl: "https://gitee.com/ThomasYou/musicfree/raw/master/dist/kg/index.js",
+    srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/kg/index.js",
     cacheControl: "no-cache",
     primaryKey: ["id", "album_id", "album_audio_id"],
     hints: {

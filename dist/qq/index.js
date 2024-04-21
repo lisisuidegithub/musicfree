@@ -478,92 +478,32 @@ async function getMusicSheetInfo(sheet, page) {
 
 
 
-// 获取链接
+// by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
-    if (musicItem.isVip === "1") { // 需要会员，调用解析
-        const url = await getMediaSource2(musicItem, quality);
-    } else {
-        const item = await getSourceUrl(musicItem.songmid, quality);
-        const $$$ = item.req_0.data;
-        const url = $$$.sip[0] + $$$.midurlinfo[0].purl;
-    }
-    return {
-        url
-    };
-}
-async function getMediaSource2(musicItem, quality) {
-    if (Math.round(Math.random()) == 0) {
-        let jx_url = await xiaoqiu(musicItem.songmid);
-        if (!jx_url) {
-            jx_url = await fjjstudio(musicItem);
-        }
-    } else {
-        let jx_url = await fjjstudio(musicItem);
-        if (!jx_url) {
-            jx_url = await xiaoqiu(musicItem.songmid);
-        }
-    }
-    return jx_url;
-}
-
-
-
-// by 小秋音源
-// https://mirror.ghproxy.com/https://raw.githubusercontent.com/Huibq/keep-alive/master/Music_Free/xiaoqiu.js
-async function xiaoqiu(songmid) {
     try {
-        let jx_item = (await (0, axios_1.default)({
+        let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://share.duanx.cn/url/tx/${songmid}/128k`,
+            url: `https://lxmusic.ikunshare.com:9763/url/tx/${musicItem.songmid}/${quality}`,
             headers: {
-                "X-Request-Key": "share-v2"
+                "X-Request-Key": "lxmusic"
             },
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
-        return jx_item.url;
+        
+        return {
+            url: ikun.data,
+          };
     } catch (err) {
         return null;
     }
 }
-
-
-
-// by 音乐解析
-// https://fjjstudio.xyz/
-async function fjjstudio(_) {
-    let serverUrl = changeUrlQuery({
-        plat: 'qq', // wyy
-        query: _.songmid,
-        id: _.id,
-        song: _.title,
-        layout: "other",
-        pod: "download"
-    }, "https://api.fjjstudio.xyz/api/music/download");
-    try {
-        let jx_item = (await (0, axios_1.default)({
-            method: "GET",
-            url: serverUrl,
-            headers: {
-                origin: 'https://fjjstudio.xyz',
-                referer: 'https://fjjstudio.xyz/'
-            },
-            xsrfCookieName: "XSRF-TOKEN",
-            withCredentials: true,
-        })).data;
-        return jx_item.data.url;
-    } catch (err) {
-        return null;
-    }
-}
-
-
 
 module.exports = {
-    platform: "QQ音乐",
-    author: '反馈Q群@365976134',
-    version: "0.2.4",
-    srcUrl: "https://gitee.com/ThomasYou/musicfree/raw/master/dist/qq/index.js",
+    platform: "TencentMusic",
+    author: 'ikun0014&ThomasYou',
+    version: "0.0.1",
+    srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/qq/index.js",
     cacheControl: "no-cache",
     hints: {
         importMusicSheet: [

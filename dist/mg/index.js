@@ -519,32 +519,32 @@ async function getRecommendSheetsByTag(sheetItem, page) {
         data,
     };
 }
+
+// by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
-    if (musicItem.url) {
-        const resource = {
-            songItem: {
-                albumImgs: []
-            }
-        };
-    } else {
-        const resource = (await (0, axios_1.default)({
-            url: `https://app.c.nf.migu.cn/MIGUM2.0/strategy/listen-url/v2.2?netType=01&resourceType=E&songId=${musicItem.id}&toneFlag=PQ`,
+    try {
+        let ikun = (await (0, axios_1.default)({
+            method: "GET",
+            url: `https://lxmusic.ikunshare.com:9763/url/wy/${musicItem.id}/${quality}`,
             headers: {
-                referer: "http://m.music.migu.cn/v3",
-                uid: "114514",
-                channel: "0146741",
+                "X-Request-Key": "lxmusic"
             },
-        })).data.data;
+            xsrfCookieName: "XSRF-TOKEN",
+            withCredentials: true,
+        })).data;
+
+        return {
+            url: ikun.data,
+          };
+    } catch (err) {
+        return null;
     }
-    return {
-        url: String(musicItem.url || resource.url).split("?")[0],
-        artwork: musicItem.artwork || (resource.songItem.albumImgs[0] || {}).img,
-    };
 }
+
 module.exports = {
-    platform: "咪咕音乐",
-    author: '反馈Q群@365976134',
-    version: "0.2.2",
+    platform: "MiguMusic",
+    author: 'ikun0014&ThomasYou',
+    version: "0.0.1",
     appVersion: ">0.1.0-alpha.0",
     hints: {
         importMusicSheet: [

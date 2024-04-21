@@ -400,77 +400,27 @@ async function getTopLists() {
     }
     return groups;
 }
-const qualityLevels = {
-    low: "",
-    standard: "standard",
-    high: "exhigh",
-    super: "lossless",
-};
+
+// by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
-    if (musicItem.isVip === "1") { // 需要会员，调用解析
-        const url = await getMediaSource2(musicItem, quality);
-    } else {
-        const url = `https://music.163.com/song/media/outer/url?id=${musicItem.id}.mp3`;
-    }
-    return {
-        url
-    };
-}
-async function getMediaSource2(musicItem, quality) {
-    let id = musicItem.id;
-    if (Math.round(Math.random()) == 0) {
-        let jx_url = await sq0527(id);
-        if (!jx_url) {
-            jx_url = await yinyueke(id);
-        }
-    } else {
-        let jx_url = await yinyueke(id);
-        if (!jx_url) {
-            jx_url = await sq0527(id);
-        }
-    }
-    return jx_url;
-}
-
-
-
-// by 无损音乐网
-// http://www.sq0527.cn/
-async function sq0527(id) {
     try {
-        const res = await axios_1.default.get('http://www.sq0527.cn/music/' + id + '.html', {
-            headers: {
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54",
-            },
-        });
-        const $ = cheerio.load(res.data);
-        return $("#btn-download-mp3").attr("href");
-    } catch (err) {
-        return null;
-    }
-}
-
-
-
-// by 爱听音乐, 音乐客
-// https://yinyueke.net/
-// https://yinyue.love/
-async function yinyueke(_) {
-    let serverUrl = "https://player.yinyueke.net/?types=url&id=" + id + "&source=netease&_=" + new Date().getTime();
-    try {
-        let jx_item = (await (0, axios_1.default)({
+        const ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: serverUrl,
+            url: `https://lxmusic.ikunshare.com:9763/url/wy/${musicItem.id}/${quality}`,
+            headers: {
+                "X-Request-Key": "lxmusic"
+            },
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
-        return jx_item.url;
+        
+        return {
+            url: ikun.data,
+          };
     } catch (err) {
         return null;
     }
 }
-
-
 
 const headers = {
     authority: "music.163.com",
@@ -585,11 +535,11 @@ async function getMusicSheetInfo(sheet, page) {
     }, extra);
 }
 module.exports = {
-    platform: "简繁音乐",
-    author: '是青旨啊',
-    version: "0.0.6",
+    platform: "NeteaseCloudMusic",
+    author: 'ikun0014&ThomasYou',
+    version: "0.0.1",
     appVersion: ">0.1.0-alpha.0",
-    srcUrl: "https://gitee.com/ThomasYou/musicfree/raw/master/dist/wy/index.js",
+    srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/wy/index.js",
     cacheControl: "no-store",
     hints: {
         importMusicSheet: [
