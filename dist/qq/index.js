@@ -476,14 +476,19 @@ async function getMusicSheetInfo(sheet, page) {
     };
 }
 
-
+const qualityLevels = {
+    low: "128k",
+    standard: "320k",
+    high: "flac",
+    super: "flac24bit",
+};
 
 // by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://lxmusic.ikunshare.com:9763/url/tx/${musicItem.songmid}/${quality}`,
+            url: `https://lxmusic.ikunshare.com:9763/url/tx/${musicItem.songmid}/${qualityLevels[quality]}`,
             headers: {
                 "X-Request-Key": "lxmusic"
             },
@@ -502,7 +507,7 @@ async function getMediaSource(musicItem, quality) {
 module.exports = {
     platform: "TencentMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.1",
+    version: "0.0.2",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/qq/index.js",
     cacheControl: "no-cache",
     hints: {

@@ -520,12 +520,19 @@ async function getRecommendSheetsByTag(sheetItem, page) {
     };
 }
 
+const qualityLevels = {
+    low: "128k",
+    standard: "320k",
+    high: "flac",
+    super: "flac24bit",
+};
+
 // by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://lxmusic.ikunshare.com:9763/url/wy/${musicItem.id}/${quality}`,
+            url: `https://lxmusic.ikunshare.com:9763/url/wy/${musicItem.id}/${qualityLevels[quality]}`,
             headers: {
                 "X-Request-Key": "lxmusic"
             },
@@ -544,7 +551,7 @@ async function getMediaSource(musicItem, quality) {
 module.exports = {
     platform: "MiguMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.1",
+    version: "0.0.2",
     appVersion: ">0.1.0-alpha.0",
     hints: {
         importMusicSheet: [

@@ -84,7 +84,7 @@ async function searchAlbum(query, page) {
     });
     return {
         isEnd: page * 20 >= res.data.total,
-        data: IAlbumItem[albums],
+        data: albums,
     };
 }
 async function searchMusicSheet(query, page) {
@@ -111,7 +111,7 @@ async function searchMusicSheet(query, page) {
     }));
     return {
         isEnd: page * pageSize >= res.data.total,
-        data: IMusicSheetItem[sheets],
+        data: sheets,
     };
 }
 async function getTopLists() {
@@ -291,31 +291,46 @@ async function importMusicSheet(urlLike) {
     return musicList;
 }
 
-const signKey = "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt";
-async function signMD5(content) {
-    return CryptoJS.MD5(signKey + content + signKey).toString();
-}
+// async function searchMusic(query, page) {
+    // let res = (await (0, axios_1.default)({
+            // method: "GET",
+            // url: `https://songsearch.kugou.com/song_search_v2?keyword=${query}&page=${page}&pagesize=20&userid=0&clientver&platform=WebFilter&filter=2&iscorrection=1&privilege_filter=0&area_code=1`,
+        // })).data;
+    // const songs = res.data.lists.map((_) => {
+        // return {
+            // id: _.FileHash,
+            // title: _.OriSongName + (_.Suffix ? ' ' + _.Suffix : ''),
+            // artist: _.SingerName,
+            // album: _.AlbumName,
+            // album_id: _.AlbumID,
+            // album_audio_id: _.MixSongID,
+            // artwork: _.Image ? _.Image.replace("{size}", "400") : undefined,
+            // "320hash": _.HQFileHash,
+            // sqhash: _.SQFileHash,
+            // origin_hash: _.ResFileHash
+        // };
+    // });
+    // return {
+        // isEnd: page * pageSize >= res.data.total,
+        // data: songs,
+    // };
+// }
+
 async function searchMusic(query, page) {
-    let time = new Date().getTime(),
-        mid = await signMD5(query + page + time),
-        params = [
-            "srcappid=2919",
-            "clientver=1000",
-            "clienttime=" + time,
-            "mid=" + mid,
-            "uuid=" + mid,
-            "dfid=-",
-            "appid=1058",
-            "token=",
-            "userid=0",
-            "keyword=" + query,
-            "page=" + page,
-            "pagesize=" + pageSize
-        ].sort(),
-        signature = await signMD5(params.join("")),
-        url = "https://gateway.kugou.com/complexsearch/v3/search/song?" + params.join("&") + "&signature=" + signature;
-    const res = (await axios_1.default.get(url, {
-        headers
+    const res = (await axios_1.default.get("https://songsearch.kugou.com/song_search_v2", {
+        headers,
+        params: {
+            keyword: query,
+            page,
+            pagesize: pageSize,
+            userid: 0,
+            clientver: "",
+            platform: "WebFilter",
+            filter: 2,
+            iscorrection: 1,
+            privilege_filter: 0,
+            area_code: 1,
+        },
     })).data;
     const songs = res.data.lists.map((_) => {
         return {
@@ -326,9 +341,9 @@ async function searchMusic(query, page) {
             album_id: _.AlbumID,
             album_audio_id: _.MixSongID,
             artwork: _.Image ? _.Image.replace("{size}", "400") : undefined,
-            "320hash": _.HQ ? _.HQ.Hash : _.HQ,
-            sqhash: _.SQ ? _.SQ.Hash : _.SQ,
-            origin_hash: _.Res ? _.Res.Hash : _.Res
+            "320hash": _.HQFileHash,
+            sqhash: _.SQFileHash,
+            origin_hash: _.ResFileHash
         };
     });
     return {
@@ -337,12 +352,19 @@ async function searchMusic(query, page) {
     };
 }
 
+const qualityLevels = {
+    low: "128k",
+    standard: "320k",
+    high: "flac",
+    super: "flac24bit",
+};
+
 // by ikun0014&ThomasYou
 async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://lxmusic.ikunshare.com:9763/url/kg/${musicItem.id}/${quality}`,
+            url: `https://lxmusic.ikunshare.com:9763/url/kg/${musicItem.id}/${qualityLevels[quality]}`,
             headers: {
                 "X-Request-Key": "lxmusic"
             },
@@ -397,7 +419,7 @@ async function getLyric(musicItem) {
 
 module.exports = {
     platform: "KugouMusic",
-    version: "0.0.1",
+    version: "0.0.2",
     author: 'ikun0014&ThomasYou',
     appVersion: ">0.1.0-alpha.0",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/kg/index.js",
