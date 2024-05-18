@@ -413,7 +413,7 @@ async function getMediaSource(musicItem, quality) {
     try {
         const ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://lxmusic.ikunshare.com:9763/url/wy/${musicItem.id}/${qualityLevels[quality]}`,
+            url: `https://lxmusic.ikunshare.com/url/wy/${musicItem.id}/${qualityLevels[quality]}`,
             headers: {
                 "X-Request-Key": "lxmusic"
             },

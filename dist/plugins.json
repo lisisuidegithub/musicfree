@@ -15,10 +15,6 @@
         "name": "KugouMusic",
         "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/kg/index.js",
         "version": "0.0.2"
-    }, {
-        "name": "KuwoMusic",
-        "url": "https://gitee.com/ikun0014/musicfree/raw/master/dist/kw/index.js",
-        "version": "0.0.2"
     }
 ]
 }
