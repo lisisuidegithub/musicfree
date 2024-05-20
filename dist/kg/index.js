@@ -364,7 +364,7 @@ async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `https://source.ikunshare.com/url/kg/${musicItem.id}/${qualityLevels[quality]}`,
+            url: `https://lxmusic.ikunshare.com:9763/url/kg/${musicItem.id}/${qualityLevels[quality]}`,
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
