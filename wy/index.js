@@ -541,7 +541,7 @@ async function getMusicSheetInfo(sheet, page) {
 module.exports = {
     platform: "NeteaseCloudMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.2",
+    version: "0.0.3",
     appVersion: ">0.1.0-alpha.0",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/wy/index.js",
     cacheControl: "no-store",

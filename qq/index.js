@@ -504,7 +504,7 @@ async function getMediaSource(musicItem, quality) {
 module.exports = {
     platform: "TencentMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.2",
+    version: "0.0.3",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/qq/index.js",
     cacheControl: "no-cache",
     hints: {
