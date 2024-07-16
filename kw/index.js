@@ -473,7 +473,7 @@ const qualityLevels = {
 };
 async function getMediaSource(musicItem, quality) {
     const res = (
-        await axios_1.default.get(`http://110.42.111.49:1314/url/kw/${musicItem.id}/${qualityLevels[quality]}`, {
+        await axios_1.default.get(`http://110.42.36.53:1314/url/kw/${musicItem.id}/${qualityLevels[quality]}`, {
         })
     ).data;
     return {
@@ -502,7 +502,7 @@ async function getMusicInfo(musicItem) {
 module.exports = {
     platform: "KuwoMusic",
     author: 'Huibq&ikun0014',
-    version: "0.0.3",
+    version: "0.0.4",
     appVersion: ">0.1.0-alpha.0",
     srcUrl: "https://gitee.com/ikun0014/musicfree/master/kw/index.js",
     cacheControl: "no-cache",

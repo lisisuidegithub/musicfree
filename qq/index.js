@@ -488,7 +488,7 @@ async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `http://110.42.111.49:1314/url/tx/${musicItem.songmid}/${qualityLevels[quality]}`,
+            url: `http://110.42.36.53:1314/url/tx/${musicItem.songmid}/${qualityLevels[quality]}`,
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
@@ -504,7 +504,7 @@ async function getMediaSource(musicItem, quality) {
 module.exports = {
     platform: "TencentMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.3",
+    version: "0.0.4",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/qq/index.js",
     cacheControl: "no-cache",
     hints: {

@@ -532,7 +532,7 @@ async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `http://110.42.111.49:1314/url/wy/${musicItem.id}/${qualityLevels[quality]}`,
+            url: `http://110.42.36.53:1314/url/wy/${musicItem.id}/${qualityLevels[quality]}`,
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
@@ -548,7 +548,7 @@ async function getMediaSource(musicItem, quality) {
 module.exports = {
     platform: "MiguMusic",
     author: 'ikun0014&ThomasYou',
-    version: "0.0.3",
+    version: "0.0.4",
     appVersion: ">0.1.0-alpha.0",
     hints: {
         importMusicSheet: [
