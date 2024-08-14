@@ -364,7 +364,7 @@ async function getMediaSource(musicItem, quality) {
     try {
         let ikun = (await (0, axios_1.default)({
             method: "GET",
-            url: `http://110.42.36.53:1314/url/kg/${musicItem.id}/${qualityLevels[quality]}`,
+            url: `http://110.42.41.81:1314/url/kg/${musicItem.id}/${qualityLevels[quality]}`,
             xsrfCookieName: "XSRF-TOKEN",
             withCredentials: true,
         })).data;
@@ -416,7 +416,7 @@ async function getLyric(musicItem) {
 
 module.exports = {
     platform: "KugouMusic",
-    version: "0.0.4",
+    version: "0.0.5",
     author: 'ikun0014&ThomasYou',
     appVersion: ">0.1.0-alpha.0",
     srcUrl: "https://gitee.com/ikun0014/musicfree/raw/master/dist/kg/index.js",
